@@ -1,18 +1,28 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, LogOut } from 'lucide-react';
 import { SearchModal } from './SearchModal';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from './ui/button';
 import logo from '@/assets/large-logo.webp';
 
 const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
+  const { user, userData, logout } = useAuth();
 
   const isActive = (path: string) => {
     if (path === '/docs') {
       return location.pathname.startsWith('/docs');
     }
     return location.pathname === path;
+  };
+
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (
@@ -23,7 +33,7 @@ const Header = () => {
             <div className="flex items-center gap-4">
               <Link to="/" className="flex items-center gap-2">
                 <img src={logo} alt="En Croissant" className="w-8 h-8 rounded" />
-                <span className="font-semibold text-foreground">En Croissant</span>
+                <span className="font-semibold text-foreground">{t('hero.title')}</span>
               </Link>
 
               <button
@@ -31,33 +41,64 @@ const Header = () => {
                 className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-secondary rounded-md text-muted-foreground text-sm hover:bg-secondary/80 transition-colors"
               >
                 <Search className="w-4 h-4" />
-                <span>Search</span>
-                <kbd className="ml-2 px-1.5 py-0.5 bg-background rounded text-xs">Ctrl K</kbd>
+                <span>{t('search')}</span>
+                <kbd className="ms-2 px-1.5 py-0.5 bg-background rounded text-xs">Ctrl K</kbd>
               </button>
             </div>
 
-            <nav className="flex items-center gap-6">
+            <nav className="flex items-center gap-4">
               <Link
                 to="/support"
-                className={`nav-link ${isActive('/support') ? 'nav-link-active' : ''}`}
+                className={`nav-link hidden sm:block ${isActive('/support') ? 'nav-link-active' : ''}`}
               >
-                Support
+                {t('nav.support')}
               </Link>
               <Link
                 to="/docs"
-                className={`nav-link ${isActive('/docs') ? 'nav-link-active' : ''}`}
+                className={`nav-link hidden sm:block ${isActive('/docs') ? 'nav-link-active' : ''}`}
               >
-                Documentation
+                {t('nav.docs')}
+              </Link>
+              <Link
+                to="/issues"
+                className={`nav-link hidden sm:block ${isActive('/issues') ? 'nav-link-active' : ''}`}
+              >
+                {t('nav.issues')}
               </Link>
               <Link
                 to="/download"
-                className={`nav-link ${isActive('/download') ? 'nav-link-active' : ''}`}
+                className={`nav-link hidden sm:block ${isActive('/download') ? 'nav-link-active' : ''}`}
               >
-                Download
+                {t('nav.download')}
               </Link>
-              <button className="text-muted-foreground hover:text-foreground">
-                •••
-              </button>
+              
+              {userData?.isAdmin && (
+                <Link
+                  to="/admin"
+                  className={`nav-link hidden sm:block ${isActive('/admin') ? 'nav-link-active' : ''}`}
+                >
+                  {t('nav.admin')}
+                </Link>
+              )}
+
+              <LanguageSwitcher />
+
+              {user ? (
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-muted-foreground hidden md:block">
+                    {userData?.displayName || user.email}
+                  </span>
+                  <Button variant="ghost" size="sm" onClick={handleLogout}>
+                    <LogOut className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Link to="/auth">
+                  <Button variant="outline" size="sm">
+                    {t('nav.login')}
+                  </Button>
+                </Link>
+              )}
             </nav>
           </div>
         </div>
