@@ -1,24 +1,27 @@
 import DocsLayout from '@/components/DocsLayout';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const ManageRepertoire = () => {
+  const { t } = useLanguage();
+
   return (
     <DocsLayout 
-      title="Manage Repertoire"
-      prevPage={{ title: 'Analyze Game', path: '/docs/analyze-game' }}
-      nextPage={{ title: 'Configure Engines', path: '/docs/configure-engines' }}
+      title={t('docs.manage-repertoire')}
+      prevPage={{ title: t('docs.analyze-game'), path: '/docs/analyze-game' }}
+      nextPage={{ title: t('docs.configure-engines'), path: '/docs/configure-engines' }}
     >
       <p className="text-muted-foreground mb-8">
-        Build and manage your opening repertoire with En Croissant's built-in tools.
+        {t('docs.repertoire-intro')}
       </p>
 
-      <h2 className="text-2xl font-bold text-foreground mb-4">Creating a Repertoire</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-4">{t('docs.creating-repertoire')}</h2>
       <p className="text-muted-foreground mb-6">
-        Go to the Repertoire tab and create a new repertoire. You can start from scratch or import from existing games.
+        {t('docs.creating-repertoire-desc')}
       </p>
 
-      <h2 className="text-2xl font-bold text-foreground mb-4">Opening Explorer</h2>
+      <h2 className="text-2xl font-bold text-foreground mb-4">{t('docs.opening-explorer')}</h2>
       <p className="text-muted-foreground mb-6">
-        Use the opening explorer to see how moves are played at the master level. This helps you make informed decisions when building your repertoire.
+        {t('docs.opening-explorer-desc')}
       </p>
     </DocsLayout>
   );

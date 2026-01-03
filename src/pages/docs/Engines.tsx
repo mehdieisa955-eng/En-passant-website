@@ -1,20 +1,23 @@
 import DocsLayout from '@/components/DocsLayout';
-
-const engines = [
-  { name: "Stockfish", description: "The strongest open-source chess engine in the world." },
-  { name: "Leela Chess Zero", description: "A neural network-based chess engine inspired by AlphaZero." },
-  { name: "Komodo", description: "A powerful chess engine known for its positional play." },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Engines = () => {
+  const { t } = useLanguage();
+
+  const engines = [
+    { name: "Stockfish", description: t('docs.stockfish-desc') },
+    { name: "Leela Chess Zero", description: t('docs.lc0-desc') },
+    { name: "Komodo", description: t('docs.komodo-desc') },
+  ];
+
   return (
     <DocsLayout 
-      title="Engines"
-      prevPage={{ title: 'Databases', path: '/docs/databases' }}
-      nextPage={{ title: 'Analyze Game', path: '/docs/analyze-game' }}
+      title={t('docs.engines')}
+      prevPage={{ title: t('docs.databases'), path: '/docs/databases' }}
+      nextPage={{ title: t('docs.analyze-game'), path: '/docs/analyze-game' }}
     >
       <p className="text-muted-foreground mb-8">
-        En Croissant supports all UCI-compatible chess engines. Here are some popular options:
+        {t('docs.engines-desc')}
       </p>
 
       <div className="space-y-8">
@@ -22,7 +25,7 @@ const Engines = () => {
           <div key={engine.name}>
             <h3 className="text-xl font-bold text-foreground mb-2">{engine.name}</h3>
             <p className="text-muted-foreground mb-2">{engine.description}</p>
-            <a href="#" className="doc-link">Download</a>
+            <a href="#" className="doc-link">{t('docs.download')}</a>
           </div>
         ))}
       </div>
