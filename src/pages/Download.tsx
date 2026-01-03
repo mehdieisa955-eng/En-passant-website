@@ -1,24 +1,27 @@
 import Header from '@/components/Header';
 import { Download as DownloadIcon } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const Download = () => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <main className="pt-24 pb-16">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-foreground mb-6">Download</h1>
+          <h1 className="text-4xl font-bold text-foreground mb-6">{t('download.title')}</h1>
           
           <p className="text-muted-foreground mb-10 leading-relaxed">
-            En Croissant is available for Windows, macOS, and Linux. Choose your platform below to download the latest version.
+            {t('download.subtitle')}
           </p>
 
           <div className="space-y-6">
             <div className="feature-card">
-              <h2 className="text-xl font-bold text-foreground mb-2">Windows</h2>
+              <h2 className="text-xl font-bold text-foreground mb-2">{t('download.windows')}</h2>
               <p className="text-muted-foreground text-sm mb-4">
-                Download the installer for Windows 10 or later.
+                {t('download.windows-desc')}
               </p>
               <a
                 href="https://github.com/franciscoBSalgueiro/en-croissant/releases/latest"
@@ -27,14 +30,14 @@ const Download = () => {
                 className="inline-flex items-center gap-2 text-primary hover:underline"
               >
                 <DownloadIcon className="w-4 h-4" />
-                Download for Windows
+                {t('download.download-for')} {t('download.windows')}
               </a>
             </div>
 
             <div className="feature-card">
-              <h2 className="text-xl font-bold text-foreground mb-2">macOS</h2>
+              <h2 className="text-xl font-bold text-foreground mb-2">{t('download.mac')}</h2>
               <p className="text-muted-foreground text-sm mb-4">
-                Download the DMG for macOS 10.15 or later.
+                {t('download.mac-desc')}
               </p>
               <a
                 href="https://github.com/franciscoBSalgueiro/en-croissant/releases/latest"
@@ -43,14 +46,14 @@ const Download = () => {
                 className="inline-flex items-center gap-2 text-primary hover:underline"
               >
                 <DownloadIcon className="w-4 h-4" />
-                Download for macOS
+                {t('download.download-for')} {t('download.mac')}
               </a>
             </div>
 
             <div className="feature-card">
-              <h2 className="text-xl font-bold text-foreground mb-2">Linux</h2>
+              <h2 className="text-xl font-bold text-foreground mb-2">{t('download.linux')}</h2>
               <p className="text-muted-foreground text-sm mb-4">
-                Download the AppImage or .deb for Linux distributions.
+                {t('download.linux-desc')}
               </p>
               <a
                 href="https://github.com/franciscoBSalgueiro/en-croissant/releases/latest"
@@ -59,13 +62,13 @@ const Download = () => {
                 className="inline-flex items-center gap-2 text-primary hover:underline"
               >
                 <DownloadIcon className="w-4 h-4" />
-                Download for Linux
+                {t('download.download-for')} {t('download.linux')}
               </a>
             </div>
           </div>
 
           <p className="text-muted-foreground text-sm mt-8">
-            View all releases on{' '}
+            {t('download.all-releases')}{' '}
             <a
               href="https://github.com/franciscoBSalgueiro/en-croissant/releases"
               target="_blank"

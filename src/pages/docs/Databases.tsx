@@ -1,4 +1,5 @@
 import DocsLayout from '@/components/DocsLayout';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const databases = [
   { name: "Lumbra's Gigabase", games: 9570564, players: 526520 },
@@ -9,14 +10,16 @@ const databases = [
 ];
 
 const Databases = () => {
+  const { t } = useLanguage();
+
   return (
     <DocsLayout 
-      title="Databases"
-      prevPage={{ title: 'What is En Croissant?', path: '/docs' }}
-      nextPage={{ title: 'Engines', path: '/docs/engines' }}
+      title={t('docs.databases')}
+      prevPage={{ title: t('docs.what-is'), path: '/docs' }}
+      nextPage={{ title: t('docs.engines'), path: '/docs/engines' }}
     >
       <p className="text-muted-foreground mb-8">
-        En Croissant comes with a selection of databases to download with a single click. Here's a list of the databases currently available:
+        {t('docs.databases-desc')}
       </p>
 
       <div className="space-y-8">
@@ -24,10 +27,10 @@ const Databases = () => {
           <div key={db.name}>
             <h3 className="text-xl font-bold text-foreground mb-2">{db.name}</h3>
             <p className="text-muted-foreground mb-2">
-              <strong className="text-foreground">Games:</strong> {db.games.toLocaleString()}{' '}
-              <strong className="text-foreground ml-4">Players:</strong> {db.players.toLocaleString()}
+              <strong className="text-foreground">{t('docs.games')}:</strong> {db.games.toLocaleString()}{' '}
+              <strong className="text-foreground ml-4">{t('docs.players')}:</strong> {db.players.toLocaleString()}
             </p>
-            <a href="#" className="doc-link">Download</a>
+            <a href="#" className="doc-link">{t('docs.download')}</a>
           </div>
         ))}
       </div>
